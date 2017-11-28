@@ -1,12 +1,16 @@
 package com.example.koetshuiskoken;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,12 +35,17 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
+    protected static Context context;
+
     //************************************************************************
     //*                 onCreate
     //************************************************************************
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(LOG_TAG, "onCreate()");
+
+        context = this.getApplicationContext();
 
         // do authorization
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -60,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
     }
     //************************************************************************
     //*                 onResume
@@ -114,6 +125,42 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "onSignedInInitialize()");
         mUsername = username;
         detachDatabaseReadListener();
+        // Create a new adapter that takes an empty listMyDayOfWeek as input.
+        MyDayOfWeekAdapter mAdapter =
+            new MyDayOfWeekAdapter(this, new ArrayList<MyDayOfWeek>());
+        // Add a array of {@link MyDayOfWeek}s to the adapter's
+        // data set. This will trigger the ListView to update.
+        mAdapter.addAll(QueryUtils.fetchMyDayOfWeekData());
+        // show the week list
+        showWeekList();
+    }
+    //************************************************************************
+    //*                 showWeekList
+    //************************************************************************
+    private void showWeekList() {
+        // Create a new adapter that takes an empty listMyDayOfWeek as input.
+        MyDayOfWeekAdapter mAdapter =
+                new MyDayOfWeekAdapter(this, new ArrayList<MyDayOfWeek>());
+        // Add a array of {@link MyDayOfWeek}s to the adapter's
+        // data set. This will trigger the ListView to update.
+        mAdapter.addAll(QueryUtils.fetchMyDayOfWeekData());
+
+        // take care of the right height of the RelativeLayout
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+
+        ListView mListView = (ListView) findViewById(R.id.list);
+        ViewGroup.LayoutParams params = mListView.getLayoutParams();
+        params.height = height;
+        mListView.setLayoutParams(params);
+
+        // Set the adapter on the {@link ListView}
+        // so the list can be populated in the user interface.
+        // Find a reference to the {@link ListView} in the layout.
+        ListView dowListView = (ListView) findViewById(R.id.list);
+        // set the adapter
+        dowListView.setAdapter(mAdapter);
     }
     //************************************************************************
     //*                 detachDatabaseReadListener

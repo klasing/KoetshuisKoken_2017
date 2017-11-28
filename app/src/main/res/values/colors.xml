@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorSun">#FF0000</color>
+    <color name="colorMon">#FF7F00</color>
+    <color name="colorTue">#7FFF00</color>
+    <color name="colorWed">#00FF00</color>
+    <color name="colorThu">#00FF7F</color>
+    <color name="colorFri">#007FFF</color>
+    <color name="colorSat">#0000FF</color>
 </resources>
