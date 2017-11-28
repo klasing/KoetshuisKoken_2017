@@ -1,9 +1,12 @@
 package com.example.koetshuiskoken;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = "***" + MainActivity.class.getSimpleName();
 
     private static final String ANONYMOUS = "anonymous";
 
@@ -64,7 +67,45 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(LOG_TAG, "onResume()");
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+    //************************************************************************
+    //*                 onPause
+    //************************************************************************
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(LOG_TAG, "onPause()");
+        if (mAuthStateListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
+        // TODO mMessageAdapter.clear();
+        detachDatabaseReadListener();
+    }
+    //************************************************************************
+    //*                 onCreateOptionsMenu
+    //************************************************************************
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(LOG_TAG, "onCreateOptionsMenu()");
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    //************************************************************************
+    //*                 onOptionsItemSelected
+    //************************************************************************
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(LOG_TAG, "onOptionsItemSelected()");
+        switch (item.getItemId()) {
+            case R.id.sign_out_menu:
+                AuthUI.getInstance().signOut(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
     //************************************************************************
     //*                 onSignedInInitialize
