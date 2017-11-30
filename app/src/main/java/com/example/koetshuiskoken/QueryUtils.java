@@ -9,14 +9,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public final class QueryUtils {
-    private static final String LOG_TAG = "***" + QueryUtils.class.getSimpleName();
+public class QueryUtils {
+    //************************************************************************
+    //*                 declare
+    //************************************************************************
+    private static final String LOG_TAG = "***" + MainActivity.class.getSimpleName();
 
     protected static final int NOF_DAY = 7;
-    private static SimpleDateFormat sdf;// = new SimpleDateFormat("dd-MM-yy");
+    private static SimpleDateFormat sdf;
     protected static String strCurrentDate;
     protected static int iCurrentDow = -1;
-    protected static MyDayOfWeek[] aMyDayOfWeek = new MyDayOfWeek[NOF_DAY];
+    protected static MyDayOfWeek[] aDayOfWeek = new MyDayOfWeek[NOF_DAY];
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -24,27 +27,27 @@ public final class QueryUtils {
      * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
      */
     private QueryUtils() {
-        // So this will never happen.
-        Log.d(LOG_TAG,"<<constructor>> QueryUtils()");
+        // so this will never happen.
+        Log.i(LOG_TAG,"<<constructor>> QueryUtils()");
     }
 
     //************************************************************************
-    //*                 fetchMyDayOfWeekData
+    //*                 fetchDayOfWeekData
     //************************************************************************
     /**
      * Return a list of {@link MyDayOfWeek} objects.
      */
-    public static List<MyDayOfWeek> fetchMyDayOfWeekData() {
-        Log.i(LOG_TAG,"QueryUtils.fetchMyDayOfWeekData()");
+    public static List<MyDayOfWeek> fetchDayOfWeekData() {
+        Log.i(LOG_TAG,"fetchDayOfWeekData()");
         getDate();
         setArrayDow();
-        List<MyDayOfWeek> listMyDayOfWeek = new ArrayList<MyDayOfWeek>(NOF_DAY);
+        List<MyDayOfWeek> listDayOfWeek = new ArrayList<MyDayOfWeek>(NOF_DAY);
         int iIdx = iCurrentDow - 1;
         for (int i = 0; i < NOF_DAY; i++) {
-            listMyDayOfWeek.add(aMyDayOfWeek[iIdx]);
+            listDayOfWeek.add(aDayOfWeek[iIdx]);
             iIdx = (iIdx + 1) % NOF_DAY;
         }
-        return listMyDayOfWeek;
+        return listDayOfWeek;
     }
 
     //************************************************************************
@@ -82,25 +85,25 @@ public final class QueryUtils {
      */
     private static void setArrayDow() {
         Log.i(LOG_TAG, "QueryUtils.setArrayDow()");
-        aMyDayOfWeek[0] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.sun),
+        aDayOfWeek[0] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.sun),
                 MainActivity.context.getResources().getColor(R.color.colorSun));
-        aMyDayOfWeek[1] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.mon),
+        aDayOfWeek[1] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.mon),
                 MainActivity.context.getResources().getColor(R.color.colorMon));
-        aMyDayOfWeek[2] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.tue),
+        aDayOfWeek[2] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.tue),
                 MainActivity.context.getResources().getColor(R.color.colorTue));
-        aMyDayOfWeek[3] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.wed),
+        aDayOfWeek[3] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.wed),
                 MainActivity.context.getResources().getColor(R.color.colorWed));
-        aMyDayOfWeek[4] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.thu),
+        aDayOfWeek[4] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.thu),
                 MainActivity.context.getResources().getColor(R.color.colorThu));
-        aMyDayOfWeek[5] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.fri),
+        aDayOfWeek[5] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.fri),
                 MainActivity.context.getResources().getColor(R.color.colorFri));
-        aMyDayOfWeek[6] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.sat),
+        aDayOfWeek[6] = new MyDayOfWeek(MainActivity.context.getResources().getString(R.string.sat),
                 MainActivity.context.getResources().getColor(R.color.colorSat));
 
         int iDow = iCurrentDow - 1;
         String strDate = strCurrentDate;
         for (int i = 0; i < NOF_DAY; i++) {
-            aMyDayOfWeek[iDow].strDate = strDate;
+            aDayOfWeek[iDow].setDate(strDate);
             iDow = (iDow + 1) % NOF_DAY;
             try {
                 Calendar cal = Calendar.getInstance();

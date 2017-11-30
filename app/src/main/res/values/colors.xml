@@ -11,4 +11,6 @@
     <color name="colorThu">#00FF7F</color>
     <color name="colorFri">#007FFF</color>
     <color name="colorSat">#0000FF</color>
+
+    <color name="colorGray">#7F7F7F</color>
 </resources>

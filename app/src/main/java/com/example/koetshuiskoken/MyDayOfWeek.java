@@ -3,20 +3,19 @@ package com.example.koetshuiskoken;
 import android.util.Log;
 
 public class MyDayOfWeek {
+    //************************************************************************
+    //*                 declare
+    //************************************************************************
     private static final String LOG_TAG = "***" + MyDayOfWeek.class.getSimpleName();
 
-    protected int iColor;
-    protected String strNameOfDay, strDate;
+    private int iColor;
+    private String strNameOfDay, strDate;
 
-    public MyDayOfWeek() {
-        Log.d(LOG_TAG, "<<constructor>> MyDayOfWeek()");
-    }
+    public MyDayOfWeek(String strNameOfDay, int iColor) {
+        Log.i(LOG_TAG, "<<constructor>> MyDayOfWeek()");
 
-    public MyDayOfWeek(String _strNameOfDay, int _iColor) {
-        Log.i(LOG_TAG, "<<constructor>> DayOfWeek()");
-
-        strNameOfDay = _strNameOfDay;
-        iColor = _iColor;
+        this.strNameOfDay = strNameOfDay;
+        this.iColor = iColor;
     }
 
     //************************************************************************
@@ -27,7 +26,6 @@ public class MyDayOfWeek {
         return iColor;
     }
 
-
     //************************************************************************
     //*                 getNameOfDay
     //************************************************************************
@@ -37,11 +35,17 @@ public class MyDayOfWeek {
     }
 
     //************************************************************************
+    //*                 setDate
+    //************************************************************************
+    public void setDate(String strDate) {
+        Log.i(LOG_TAG, "setDate()");
+        this.strDate = strDate;
+    }
+    //************************************************************************
     //*                 getDate
     //************************************************************************
     public String getDate() {
         Log.i(LOG_TAG, "getDate()");
         return strDate;
     }
-
 }
