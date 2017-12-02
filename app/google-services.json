@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "857370790622",
+    "firebase_url": "https://koetshuiskoken2017.firebaseio.com",
+    "project_id": "koetshuiskoken2017",
+    "storage_bucket": "koetshuiskoken2017.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857370790622:android:4c68b453a994ec26",
+        "android_client_info": {
+          "package_name": "com.example.koetshuiskoken"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "857370790622-73vst4fl4e23o6m4ih6f8resmpdvmuhh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.koetshuiskoken",
+            "certificate_hash": "8211d765db2f9c488bde2283bef00e60792ea26c"
+          }
+        },
+        {
+          "client_id": "857370790622-rd4vu1i85p65gjsg9973q10l770sah4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxLVQ-svevrNM6Yct_7nOfquFGzJa1jUw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "857370790622-rd4vu1i85p65gjsg9973q10l770sah4m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

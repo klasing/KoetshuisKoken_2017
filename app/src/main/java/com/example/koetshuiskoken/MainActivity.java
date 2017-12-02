@@ -45,12 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private String mUsername;
 
     private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mMessagesDatabaseReference;
+    private DatabaseReference mDinnerDatabaseReference;
     private ChildEventListener mChildEventListener;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-
-    private Firebase mRef;
 
     //************************************************************************
     //*                 onCreate
@@ -64,14 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
         // necessary for transferring Firebase to DinnerActivity
         Firebase.setAndroidContext(this);
-        // create firebase reference
-        mRef = new Firebase(FIREBASE_URL);
 
         mUsername = ANONYMOUS;
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance(FIREBASE_URL);
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mMessagesDatabaseReference =
+        mDinnerDatabaseReference =
             mFirebaseDatabase.getReference().child("dinner");
 
         // start log in procedure
@@ -209,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 //        listEating.add("Mark");
 //        JsonObject jsonObject = new JsonObject("SAT", "12-02-2017",
 //                "Jim", "Soup", (ArrayList<String>)listEating);
-//        mMessagesDatabaseReference.push().setValue(jsonObject);
+//        mDinnerDatabaseReference.push().setValue(jsonObject);
         //********************************************************************
     }
 
@@ -246,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(LOG_TAG, "onCancelled()");
                 }
             };
-            mMessagesDatabaseReference.addChildEventListener(mChildEventListener);
+            mDinnerDatabaseReference.addChildEventListener(mChildEventListener);
         }
     }
 
@@ -256,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
     private void detachDatabaseReadListener() {
         Log.i(LOG_TAG, "detachDatabaseReadListener()");
         if (mChildEventListener != null) {
-            mMessagesDatabaseReference.removeEventListener(mChildEventListener);
+            mDinnerDatabaseReference.removeEventListener(mChildEventListener);
             mChildEventListener = null;
         }
     }

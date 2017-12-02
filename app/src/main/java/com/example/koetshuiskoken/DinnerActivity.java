@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,9 @@ public class DinnerActivity extends AppCompatActivity {
     //************************************************************************
     private static final String LOG_TAG = "***" + DinnerActivity.class.getSimpleName();
 
-    private Firebase mFirebaseRef;
+    //private Firebase mFirebaseRef;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDinnerDatabaseReference;
 
     //************************************************************************
     //*                 onCreate
@@ -50,7 +53,11 @@ public class DinnerActivity extends AppCompatActivity {
 
         final String url = bundle.getString("FIREBASE_URL");
 
-        mFirebaseRef = new Firebase(url);
+        //mFirebaseRef = new Firebase(url);
+        mFirebaseDatabase = FirebaseDatabase.getInstance(url);
+        mDinnerDatabaseReference =
+                mFirebaseDatabase.getReference().child("dinner");
+
 
         //********************************************************************
         // testing the JsonObject
@@ -126,7 +133,8 @@ public class DinnerActivity extends AppCompatActivity {
                     jsonObject.setEating((ArrayList<String>) listEating);
                 }
                 // place new dinner under /KoetshuisKoken2017/dinner
-                mFirebaseRef.child("dinner").push().child(date_day.getText().toString()).setValue(jsonObject);
+                //mFirebaseRef.child("dinner").push().child(date_day.getText().toString()).setValue(jsonObject);
+                mDinnerDatabaseReference.push().child(date_day.getText().toString()).setValue(jsonObject);
                 // finish this activity and return to MainActivity
                 finish();
             }
