@@ -77,6 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:textColor="@android:color/white"
+            android:textAppearance="?android:textAppearanceMedium"
             android:text="@string/btn_ok" />
         <Button
             android:id="@+id/button_save"
@@ -84,12 +85,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:textColor="@android:color/white"
+            android:textAppearance="?android:textAppearanceMedium"
             android:text="@string/btn_save" />
         <Button
             android:id="@+id/button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
+            android:textAppearance="?android:textAppearanceMedium"
             android:text="@string/btn_cancel" />
     </LinearLayout>
 
