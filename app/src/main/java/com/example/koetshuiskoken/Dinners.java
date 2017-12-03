@@ -25,7 +25,8 @@ public class Dinners {
     //*                 setJsonObject
     //************************************************************************
     protected void setJsonObject(int index, JsonObject jsonObject) {
-        listDinner.add(index, jsonObject);
+        // set element at specified index (don't use add() element!)
+        listDinner.set(index, jsonObject);
     }
 
     //************************************************************************

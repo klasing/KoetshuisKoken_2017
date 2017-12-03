@@ -235,7 +235,8 @@ public class MainActivity extends AppCompatActivity {
                     int index = QueryUtils.getIndexFromDate(jsonObject.getDateDay());
                     Log.i(LOG_TAG, "index: " + index);
                     // store JsonObject, with newly added dinner, in object Dinners
-                    dinners.setJsonObject(index, jsonObject);
+                    if (index >= 0 && index < QueryUtils.NOF_DAY)
+                        dinners.setJsonObject(index, jsonObject);
                     Log.i(LOG_TAG, dinners.toString());
                 }
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {

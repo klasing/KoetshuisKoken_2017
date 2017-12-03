@@ -135,6 +135,11 @@ public class QueryUtils {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(sdf.parse(strCurrentDate));
                 index++;
+                if (index == NOF_DAY) {
+                    // Firebase returned a JsonObject out of scope
+                    index = -1;
+                    break;
+                }
                 cal.add(Calendar.DATE, 1);
                 strCurrentDate = sdf.format(cal.getTime());
             }
