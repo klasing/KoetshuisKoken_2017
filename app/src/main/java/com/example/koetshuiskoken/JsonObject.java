@@ -2,7 +2,12 @@ package com.example.koetshuiskoken;
 
 import android.util.Log;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,7 +19,10 @@ public class JsonObject {
     //************************************************************************
     private static final String LOG_TAG = "***" + MainActivity.class.getSimpleName();
 
-    private String nameDay, dateDay, nameCook, descriptionMeal;
+    private String nameDay;
+    private String dateDay;
+    private String nameCook;
+    private String descriptionMeal;
     private List<String> listEating = new ArrayList<>();
 
     public JsonObject() {
@@ -30,40 +38,60 @@ public class JsonObject {
         this.descriptionMeal = descriptionMeal;
         this.listEating.addAll(listEating);
     }
-
+    @JsonSetter("nameDay")
     public void setNameDay(String nameDay) {
         this.nameDay = nameDay;
     }
-    public String getetNameDay() {
+    @JsonGetter("nameDay")
+    public String getNameDay() {
         return nameDay;
     }
 
+    @JsonSetter("dateDay")
     public void setDateDay(String dateDay) {
         this.dateDay = dateDay;
     }
-    public String getNameDate() {
+    @JsonGetter("dateDay")
+    public String getDateDay() {
         return dateDay;
     }
 
+    @JsonSetter("nameCook")
     public void setNameCook(String nameCook) {
         this.nameCook = nameCook;
     }
+    @JsonGetter("nameCook")
     public String getNameCook() {
         return nameCook;
     }
 
+    @JsonSetter("descriptionMeal")
     public void setDescriptionMeal(String descriptionMeal) {
         this.descriptionMeal = descriptionMeal;
     }
+    @JsonGetter("descriptionMeal")
     public String getDescriptionMeal() {
         return descriptionMeal;
     }
 
-    public void setEating(ArrayList<String> listEating) {
+    @JsonSetter("listEating")
+    public void setListEating(ArrayList<String> listEating) {
         this.listEating.clear();
         this.listEating.addAll(listEating);
     }
-    public List<String> getEating() {
+    @JsonGetter("listEating")
+    public List<String> getListEating() {
         return listEating;
+    }
+
+    @JsonIgnore
+    @Override
+    public String toString() {
+        String strReturn = nameDay + " " + dateDay + "\n" + nameCook + " " + descriptionMeal + "\n";
+        Iterator<String> iteElement = listEating.iterator();
+        while (iteElement.hasNext()) {
+            strReturn += iteElement.next() + " ";
+        }
+        return strReturn;
     }
 }

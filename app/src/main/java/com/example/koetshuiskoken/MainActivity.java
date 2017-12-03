@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.firebase.client.Firebase;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i(LOG_TAG, "onCreate()");
         setContentView(R.layout.activity_main);
         context = this.getApplicationContext();
-
-        // necessary for transferring Firebase to DinnerActivity
-        Firebase.setAndroidContext(this);
 
         mUsername = ANONYMOUS;
 
@@ -228,6 +224,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Log.i(LOG_TAG, "onChildAdded()");
+                    JsonObject jsonObject = dataSnapshot.getValue(JsonObject.class);
+                    Log.i(LOG_TAG, jsonObject.toString());
                 }
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     Log.i(LOG_TAG, "onChildChanged()");

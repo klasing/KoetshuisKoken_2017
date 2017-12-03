@@ -130,11 +130,10 @@ public class DinnerActivity extends AppCompatActivity {
                         listEating.add(strSubstr);
                         iStartSubstr = m.end();
                     }
-                    jsonObject.setEating((ArrayList<String>) listEating);
+                    jsonObject.setListEating((ArrayList<String>) listEating);
                 }
                 // place new dinner under /KoetshuisKoken2017/dinner
-                //mFirebaseRef.child("dinner").push().child(date_day.getText().toString()).setValue(jsonObject);
-                mDinnerDatabaseReference.push().child(date_day.getText().toString()).setValue(jsonObject);
+                mDinnerDatabaseReference.push().setValue(jsonObject);
                 // finish this activity and return to MainActivity
                 finish();
             }
