@@ -73,7 +73,7 @@ public class QueryUtils {
         } finally {
             ;
         }
-        Log.i("***", "current date: " + strCurrentDate + " dow " + iCurrentDow);
+        Log.i(LOG_TAG, "current date: " + strCurrentDate + " dow " + iCurrentDow);
     }
 
     //************************************************************************
@@ -116,5 +116,33 @@ public class QueryUtils {
                 ;
             }
         }
+    }
+    //************************************************************************
+    //*                 getIndexFromDate
+    //************************************************************************
+    /**
+     * Get index in Dinners to store a newly added dinner JsonObject,
+     * received from Firebase.
+     */
+    protected static int getIndexFromDate(String dateDay) {
+        Log.i(LOG_TAG, "QueryUtils.getIndexFromDate()");
+        int index = 0;
+        Date currentDate = new Date();
+        sdf = new SimpleDateFormat(MainActivity.context.getResources().getString(R.string.sdf_format));
+        strCurrentDate = sdf.format(currentDate);
+        try {
+            while (!dateDay.equals(strCurrentDate)) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(sdf.parse(strCurrentDate));
+                index++;
+                cal.add(Calendar.DATE, 1);
+                strCurrentDate = sdf.format(cal.getTime());
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            ;
+        }
+        return index;
     }
 }

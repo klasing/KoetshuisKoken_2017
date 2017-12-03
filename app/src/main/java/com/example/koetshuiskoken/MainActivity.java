@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
+    Dinners dinners;
+
     //************************************************************************
     //*                 onCreate
     //************************************************************************
@@ -193,6 +195,8 @@ public class MainActivity extends AppCompatActivity {
     private void onSignedInInitialize(String username) {
         mUsername = username;
         Log.i(LOG_TAG, "onSignedInInitialize() " + mUsername);
+        // create a dinners store object
+        dinners = new Dinners();
         attachDatabaseReadListener();
         //********************************************************************
         // test database
@@ -224,8 +228,15 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Log.i(LOG_TAG, "onChildAdded()");
+                    // receive JsonObject from Firebase after an new dinner is added
                     JsonObject jsonObject = dataSnapshot.getValue(JsonObject.class);
                     Log.i(LOG_TAG, jsonObject.toString());
+                    // find index for newly added dinner
+                    int index = QueryUtils.getIndexFromDate(jsonObject.getDateDay());
+                    Log.i(LOG_TAG, "index: " + index);
+                    // store JsonObject, with newly added dinner, in object Dinners
+                    dinners.setJsonObject(index, jsonObject);
+                    Log.i(LOG_TAG, dinners.toString());
                 }
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     Log.i(LOG_TAG, "onChildChanged()");
