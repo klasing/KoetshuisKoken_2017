@@ -5,6 +5,7 @@ import android.util.Log;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * Created by Klasing on 30-11-2017
  */
+@IgnoreExtraProperties
 public class JsonObject {
     //************************************************************************
     //*                 declare
@@ -24,6 +26,7 @@ public class JsonObject {
     private String nameCook;
     private String descriptionMeal;
     private List<String> listEating = new ArrayList<>();
+    private String key;
 
     public JsonObject() {
         Log.i(LOG_TAG, "<<constructor>> JsonObject()");
@@ -87,11 +90,22 @@ public class JsonObject {
     @JsonIgnore
     @Override
     public String toString() {
-        String strReturn = nameDay + " " + dateDay + "\n" + nameCook + " " + descriptionMeal + "\n";
+        String strReturn = key + "\n" +
+                nameDay + " " + dateDay + "\n" +
+                nameCook + " " + descriptionMeal + "\n";
         Iterator<String> iteElement = listEating.iterator();
         while (iteElement.hasNext()) {
             strReturn += iteElement.next() + " ";
         }
         return strReturn;
+    }
+
+    @JsonIgnore
+    public void setKey(String key) {
+        this.key = key;
+    }
+    @JsonIgnore
+    public String getKey() {
+        return key;
     }
 }

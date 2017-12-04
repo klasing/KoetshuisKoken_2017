@@ -24,6 +24,7 @@ public class DinnerActivity extends AppCompatActivity {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDinnerDatabaseReference;
+    private boolean bAddNew = true;
 
     //************************************************************************
     //*                 onCreate
@@ -69,6 +70,7 @@ public class DinnerActivity extends AppCompatActivity {
             for (String strElement : jsonObject.getListEating()) {
                 edittext_eating.append(strElement + '\n');
             }
+            bAddNew = false;
         }
         //********************************************************************
         // testing the JsonObject
@@ -143,8 +145,15 @@ public class DinnerActivity extends AppCompatActivity {
                     }
                     jsonObject.setListEating((ArrayList<String>) listEating);
                 }
-                // place new dinner under /KoetshuisKoken2017/dinner
-                mDinnerDatabaseReference.push().setValue(jsonObject);
+                if (bAddNew) {
+                    // place new dinner under /KoetshuisKoken2017/dinner
+                    mDinnerDatabaseReference.push().setValue(jsonObject);
+                } else {
+                    Log.i(LOG_TAG, "update existing record");
+                    // place update dinner under /KoetshuisKoken2017/dinner/[key]
+                    mDinnerDatabaseReference.child(Singleton.getInstance().getJsonObject().getKey()).setValue(jsonObject);
+
+                }
                 // finish this activity and return to MainActivity
                 finish();
             }

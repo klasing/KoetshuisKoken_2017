@@ -232,13 +232,15 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(LOG_TAG, "onChildAdded()");
                     // receive JsonObject from Firebase after an new dinner is added
                     JsonObject jsonObject = dataSnapshot.getValue(JsonObject.class);
+                    jsonObject.setKey(dataSnapshot.getKey());
                     Log.i(LOG_TAG, jsonObject.toString());
                     // find index for newly added dinner
                     int index = QueryUtils.getIndexFromDate(jsonObject.getDateDay());
                     Log.i(LOG_TAG, "index: " + index);
                     // store JsonObject, with newly added dinner, in object Dinners
-                    if (index >= 0 && index < QueryUtils.NOF_DAY)
+                    if (index >= 0 && index < QueryUtils.NOF_DAY) {
                         dinners.setJsonObject(index, jsonObject);
+                    }
                     Log.i(LOG_TAG, dinners.toString());
                 }
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
