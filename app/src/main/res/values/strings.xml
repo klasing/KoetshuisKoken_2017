@@ -17,4 +17,5 @@
     <string name="sdf_format">MM-dd-yyyy</string>
 
     <string name="sign_out">Sign out</string>
+    <string name="image_content_description">this is an image</string>
 </resources>
