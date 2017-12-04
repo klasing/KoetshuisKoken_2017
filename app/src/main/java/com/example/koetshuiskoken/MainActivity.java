@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -60,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
         Log.i(LOG_TAG, "onCreate()");
         setContentView(R.layout.activity_main);
         context = this.getApplicationContext();
+
+        // the eagle has landed, we have an icon on the actionbar
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setIcon(R.drawable.ic_launcher_koetshuis_koken);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
 
         mUsername = ANONYMOUS;
 
