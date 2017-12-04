@@ -104,8 +104,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Log.i(LOG_TAG, "DayOfWeek[" + position + "].onItemClick()");
-                // Find the current DayOfWeek that was clicked on
+                // find the current DayOfWeek that was clicked on
                 MyDayOfWeek currentDayOfWeek = mAdapter.getItem(position);
+                // get dinner data from Dinners object and store in singleton
+                Singleton.getInstance().setJsonObject(dinners.getJsonObject(position));
 
                 // start new activity with necessary data
                 Intent intentDinnerActivity = new Intent(MainActivity.this,

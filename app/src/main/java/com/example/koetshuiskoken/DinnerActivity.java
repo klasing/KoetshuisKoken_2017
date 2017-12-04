@@ -22,7 +22,6 @@ public class DinnerActivity extends AppCompatActivity {
     //************************************************************************
     private static final String LOG_TAG = "***" + DinnerActivity.class.getSimpleName();
 
-    //private Firebase mFirebaseRef;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDinnerDatabaseReference;
 
@@ -53,12 +52,24 @@ public class DinnerActivity extends AppCompatActivity {
 
         final String url = bundle.getString("FIREBASE_URL");
 
-        //mFirebaseRef = new Firebase(url);
         mFirebaseDatabase = FirebaseDatabase.getInstance(url);
         mDinnerDatabaseReference =
                 mFirebaseDatabase.getReference().child("dinner");
 
-
+        JsonObject jsonObject;
+        if ((jsonObject = Singleton.getInstance().getJsonObject()) != null) {
+            // get name cook from json into edittext_cook
+            EditText edittext_cook = (EditText) findViewById(R.id.edittext_cook);
+            edittext_cook.setText(jsonObject.getNameCook());
+            // get description meal from json into edittext_meal
+            EditText edittext_meal = (EditText) findViewById(R.id.edittext_meal);
+            edittext_meal.setText(jsonObject.getDescriptionMeal());
+            // get guests from json into edittext_eating
+            EditText edittext_eating = (EditText) findViewById(R.id.edittext_eating);
+            for (String strElement : jsonObject.getListEating()) {
+                edittext_eating.append(strElement + '\n');
+            }
+        }
         //********************************************************************
         // testing the JsonObject
 //        List<String> listEating = new ArrayList<>();
