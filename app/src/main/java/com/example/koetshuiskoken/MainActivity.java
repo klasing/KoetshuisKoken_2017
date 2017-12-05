@@ -2,6 +2,7 @@ package com.example.koetshuiskoken;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     //************************************************************************
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance(FIREBASE_URL);
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDinnerDatabaseReference =
-            mFirebaseDatabase.getReference().child("dinner");
+                mFirebaseDatabase.getReference().child("dinner");
 
         // start log in procedure
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -89,21 +91,28 @@ public class MainActivity extends AppCompatActivity {
                     // user is signed out
                     onSignedOutCleanup();
                     startActivityForResult(AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setIsSmartLockEnabled(false)
-                        .setAvailableProviders(
-                            Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
-                        .build(),
-                        RC_SIGN_IN);
+                                    .createSignInIntentBuilder()
+                                    .setIsSmartLockEnabled(false)
+                                    .setAvailableProviders(
+                                            Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                                    .build(),
+                            RC_SIGN_IN);
                 }
             }
         };
-
+        setMyAdapter();
+    }
+    //************************************************************************
+    //*                 setExtras
+    //************************************************************************
+    private void setMyAdapter() {
         // Find a reference to the {@link ListView} in the layout.
-        dowListView = (ListView) findViewById(R.id.list);
+        dowListView =(ListView)
+
+        findViewById(R.id.list);
         // Create a new adapter that takes an empty listDayOfWeek as input.
-        mAdapter = new DayOfWeekAdapter(this, new ArrayList<MyDayOfWeek>());
+        mAdapter = new DayOfWeekAdapter(this,new ArrayList<MyDayOfWeek>());
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface.
         dowListView.setAdapter(mAdapter);
@@ -111,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         // to open a form with information about the selected day of week.
         dowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemClick (AdapterView < ? > adapterView, View view,int position, long l){
                 Log.i(LOG_TAG, "DayOfWeek[" + position + "].onItemClick()");
                 // find the current DayOfWeek that was clicked on
                 MyDayOfWeek currentDayOfWeek = mAdapter.getItem(position);
@@ -133,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
         // Add a array of {@link DayOfWeek}s to the adapter's
         // data set. This will trigger the ListView to update.
         mAdapter.addAll(QueryUtils.fetchDayOfWeekData());
-
     }
     //************************************************************************
     //*                 setExtras
@@ -194,6 +202,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sign_out_menu:
                 Log.i(LOG_TAG, "Sign out from Firebase");
                 AuthUI.getInstance().signOut(this);
+                return true;
+            case R.id.settings:
+                Log.i(LOG_TAG, "Settings");
+                // switch over to Dutch language settings
+                Locale locale = new Locale("nl");
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                // set title on actionbar according to locale
+                this.setTitle(getResources().getString(R.string.app_name));
+                // context has changed, so set context again
+                context = this.getApplicationContext();
+                // set adapter again to get localized string content
+                setMyAdapter();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

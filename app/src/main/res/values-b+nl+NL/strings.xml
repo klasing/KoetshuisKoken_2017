@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Koetshuis koken</string>
+    <string name="dinner_activity">Koetshuis maaltijd</string>
+
+    <string name="sun">ZO</string>
+    <string name="mon">MA</string>
+    <string name="tue">DI</string>
+    <string name="wed">WO</string>
+    <string name="thu">DO</string>
+    <string name="fri">VR</string>
+    <string name="sat">ZA</string>
+
+    <string name="btn_ok">OK</string>
+    <string name="btn_save">OPSLAAN</string>
+    <string name="btn_cancel">ANNULEREN</string>
+
+    <string name="sdf_format">dd-MM-yyyy</string>
+
+    <string name="sign_out">Uitloggen</string>
+    <string name="settings">Instellingen</string>
+    <string name="image_content_description">dit is een afbeelding</string>
+
+    <string name="name_guest">naam gast</string>
+    <string name="eating">Eten</string>
+    <string name="description_meal">omschrijving maaltijd</string>
+    <string name="meal">Maaltijd</string>
+    <string name="name_cook">naam kok</string>
+    <string name="cook">Kok</string>
+</resources>

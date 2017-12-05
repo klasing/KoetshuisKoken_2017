@@ -19,14 +19,14 @@
             android:paddingRight="16dp"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@android:color/white"
-            android:text="SUN"/>
+            android:text="@string/sun"/>
         <TextView
             android:id="@+id/date_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@android:color/white"
-            android:text="MM-dd-yyyy"/>
+            android:text="@string/sdf_format"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -34,39 +34,39 @@
         android:paddingLeft="16dp"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@android:color/white"
-        android:text="Cook" />
+        android:text="@string/cook" />
     <EditText
         android:id="@+id/edittext_cook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
-        android:hint="name cook"/>
+        android:hint="@string/name_cook"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@android:color/white"
-        android:text="Meal" />
+        android:text="@string/meal" />
     <EditText
         android:id="@+id/edittext_meal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
-        android:hint="description meal"/>
+        android:hint="@string/description_meal"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@android:color/white"
-        android:text="Eating"/>
+        android:text="@string/eating"/>
     <EditText
         android:id="@+id/edittext_eating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
-        android:hint="name guest"/>
+        android:hint="@string/name_guest"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
