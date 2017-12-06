@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:configChanges="locale|orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +19,13 @@
         </activity>
         <activity
             android:name=".DinnerActivity"
-            android:label="@string/dinner_activity">
+            android:label="@string/dinner_activity"
+            android:configChanges="locale|orientation|screenSize|keyboardHidden">
+        </activity>
+        <activity
+            android:name=".ChooseLocaleActivity"
+            android:label="@string/choose_locale"
+            >
         </activity>
    </application>
 

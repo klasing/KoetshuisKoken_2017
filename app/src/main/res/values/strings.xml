@@ -26,4 +26,7 @@
     <string name="meal">Meal</string>
     <string name="name_cook">name cook</string>
     <string name="cook">Cook</string>
+    <string name="english_locale">English</string>
+    <string name="dutch_locale">Dutch</string>
+    <string name="choose_locale">Choose Locale</string>
 </resources>

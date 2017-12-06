@@ -2,7 +2,6 @@ package com.example.koetshuiskoken;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -26,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     //************************************************************************
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    Dinners dinners;
+    private Dinners dinners;
 
     //************************************************************************
     //*                 onCreate
@@ -104,9 +102,10 @@ public class MainActivity extends AppCompatActivity {
         setMyAdapter();
     }
     //************************************************************************
-    //*                 setExtras
+    //*                 setMyAdapter
     //************************************************************************
     private void setMyAdapter() {
+        Log.i(LOG_TAG, "setMyAdapter()");
         // Find a reference to the {@link ListView} in the layout.
         dowListView =(ListView)
 
@@ -159,6 +158,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //************************************************************************
+    //*                 onStart
+    //************************************************************************
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(LOG_TAG, "onStart()");
+    }
+
+
+    //************************************************************************
+    //*                 onRestart
+    //************************************************************************
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(LOG_TAG, "onRestart()");
+    }
+
+    //************************************************************************
     //*                 onResume
     //************************************************************************
     @Override
@@ -205,18 +223,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.settings:
                 Log.i(LOG_TAG, "Settings");
-                // switch over to Dutch language settings
-                Locale locale = new Locale("nl");
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-                // set title on actionbar according to locale
-                this.setTitle(getResources().getString(R.string.app_name));
-                // context has changed, so set context again
-                context = this.getApplicationContext();
-                // set adapter again to get localized string content
-                setMyAdapter();
+//                // switch over to Dutch language settings
+//                Locale locale = new Locale("nl");
+//                Locale.setDefault(locale);
+//                Configuration config = new Configuration();
+//                config.locale = locale;
+//                getBaseContext().getResources()
+//                        .updateConfiguration(config,
+//                                getBaseContext().getResources().getDisplayMetrics());
+//                // set title according to locale
+//                setTitle(R.string.app_name);
+//                // set adapter again to get localized string content
+//                setMyAdapter();
+                Intent intentChooseLocaleActivity = new Intent(MainActivity.this,
+                        ChooseLocaleActivity.class);
+                startActivity(intentChooseLocaleActivity);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

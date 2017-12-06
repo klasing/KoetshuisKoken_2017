@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/choose_locale"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.koetshuiskoken.DinnerActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:background="@drawable/touch_selector"
+            android:contentDescription="english flag"
+            android:padding="8dp"
+            android:src="@drawable/country_flag_english" />
+
+        <CheckedTextView
+            android:id="@+id/locale_english"
+            android:layout_width="136dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/touch_selector"
+            android:checked="true"
+            android:checkMark="?android:attr/textCheckMark"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/english_locale"
+            android:textAppearance="?android:textAppearanceLarge" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:background="@drawable/touch_selector"
+            android:contentDescription="dutch flag"
+            android:padding="8dp"
+            android:src="@drawable/country_flag_dutch" />
+
+        <CheckedTextView
+            android:id="@+id/locale_dutch"
+            android:layout_width="136dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/touch_selector"
+            android:checked="false"
+            android:checkMark="?android:attr/textCheckMark"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/dutch_locale"
+            android:textAppearance="?android:textAppearanceLarge" />
+
+    </LinearLayout>
+</LinearLayout>

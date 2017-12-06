@@ -36,6 +36,9 @@ public class DinnerActivity extends AppCompatActivity {
         Log.i(LOG_TAG, "onCreate()");
         setContentView(R.layout.activity_dinner);
 
+        // set title on actionbar according to locale
+        this.setTitle(getResources().getString(R.string.dinner_activity));
+
         // set an icon on the actionbar
         ActionBar actionBar;
         actionBar = getSupportActionBar();
@@ -176,4 +179,23 @@ public class DinnerActivity extends AppCompatActivity {
             }
         });
     }
+
+    //************************************************************************
+    //*                 onStart
+    //************************************************************************
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(LOG_TAG, "onStart()");
+    }
+
+    //************************************************************************
+    //*                 onResume
+    //************************************************************************
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(LOG_TAG, "onResume()");
+    }
+
 }

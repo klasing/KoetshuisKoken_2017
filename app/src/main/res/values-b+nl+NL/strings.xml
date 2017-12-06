@@ -26,4 +26,8 @@
     <string name="meal">Maaltijd</string>
     <string name="name_cook">naam kok</string>
     <string name="cook">Kok</string>
+
+    <string name="english_locale">Engels</string>
+    <string name="dutch_locale">Nederlands</string>
+    <string name="choose_locale">Kies taal instelling</string>
 </resources>
