@@ -1,7 +1,9 @@
 package com.example.koetshuiskoken;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -25,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     //************************************************************************
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Dinners dinners;
 
+    private Menu menu;
+    private String strLanguage = "en";
     //************************************************************************
     //*                 onCreate
     //************************************************************************
@@ -207,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(LOG_TAG, "onCreateOptionsMenu()");
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -223,21 +229,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.settings:
                 Log.i(LOG_TAG, "Settings");
-//                // switch over to Dutch language settings
-//                Locale locale = new Locale("nl");
-//                Locale.setDefault(locale);
-//                Configuration config = new Configuration();
-//                config.locale = locale;
-//                getBaseContext().getResources()
-//                        .updateConfiguration(config,
-//                                getBaseContext().getResources().getDisplayMetrics());
-//                // set title according to locale
-//                setTitle(R.string.app_name);
-//                // set adapter again to get localized string content
-//                setMyAdapter();
+                Locale locale = Locale.getDefault();
+                String strLanguage = locale.getLanguage();
                 Intent intentChooseLocaleActivity = new Intent(MainActivity.this,
                         ChooseLocaleActivity.class);
-                startActivity(intentChooseLocaleActivity);
+                intentChooseLocaleActivity.putExtra("language", strLanguage);
+                startActivityForResult(intentChooseLocaleActivity, 1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -245,6 +242,56 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //************************************************************************
+    //*                 onActivityResult
+    //************************************************************************
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(LOG_TAG, "onActivityResult()");
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                // pick up new language setting from ChooseLocaleActivity
+                strLanguage = data.getStringExtra("language");
+                Log.i(LOG_TAG, strLanguage);
+                // switch over to new language setting
+                Locale locale = new Locale(strLanguage);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources()
+                        .updateConfiguration(config,
+                                getBaseContext().getResources().getDisplayMetrics());
+                // set title according to locale
+                setTitle(R.string.app_name);
+                // set adapter again to get localized string content
+                setMyAdapter();
+                // get menu item to set localized string content
+                MenuItem sign_out_menu = menu.findItem(R.id.sign_out_menu);
+                MenuItem settings = menu.findItem(R.id.settings);
+                sign_out_menu.setTitle(R.string.sign_out);
+                settings.setTitle(R.string.settings);
+
+            }
+        }
+
+    }
+
+    //************************************************************************
+    //*                 onConfigurationChanged
+    //************************************************************************
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.i(LOG_TAG, "onConfigurationChanged()");
+        // switch over to new language setting
+        Locale locale = new Locale(strLanguage);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources()
+                .updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
+    }
+        //************************************************************************
     //*                 onSignedInInitialize
     //************************************************************************
     private void onSignedInInitialize(String username) {

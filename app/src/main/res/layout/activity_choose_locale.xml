@@ -14,13 +14,13 @@
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/touch_selector"
-            android:contentDescription="english flag"
+            android:contentDescription="united states flag"
             android:padding="8dp"
-            android:src="@drawable/country_flag_english" />
+            android:src="@drawable/country_flag_usa" />
 
         <CheckedTextView
             android:id="@+id/locale_english"
-            android:layout_width="136dp"
+            android:layout_width="176dp"
             android:layout_height="match_parent"
             android:background="@drawable/touch_selector"
             android:checked="true"
@@ -46,7 +46,7 @@
 
         <CheckedTextView
             android:id="@+id/locale_dutch"
-            android:layout_width="136dp"
+            android:layout_width="176dp"
             android:layout_height="match_parent"
             android:background="@drawable/touch_selector"
             android:checked="false"
