@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -236,6 +237,14 @@ public class MainActivity extends AppCompatActivity {
                 intentChooseLocaleActivity.putExtra("language", strLanguage);
                 startActivityForResult(intentChooseLocaleActivity, 1);
                 return true;
+            case R.id.location:
+                Log.i(LOG_TAG, "Location");
+                Uri uri_location = Uri.parse("geo:52.0062212,5.2030687");
+                Intent intentGoogleMap = new Intent(Intent.ACTION_VIEW, uri_location);
+                if (intentGoogleMap.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intentGoogleMap);
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -266,13 +275,13 @@ public class MainActivity extends AppCompatActivity {
                 setMyAdapter();
                 // get menu item to set localized string content
                 MenuItem sign_out_menu = menu.findItem(R.id.sign_out_menu);
-                MenuItem settings = menu.findItem(R.id.settings);
                 sign_out_menu.setTitle(R.string.sign_out);
+                MenuItem settings = menu.findItem(R.id.settings);
                 settings.setTitle(R.string.settings);
-
+                MenuItem location = menu.findItem(R.id.location);
+                location.setTitle(R.string.location);
             }
         }
-
     }
 
     //************************************************************************
